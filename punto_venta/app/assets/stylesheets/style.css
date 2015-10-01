@@ -1,0 +1,15 @@
+li{
+	list-style: none;
+}
+.alert{
+	text-align: center;
+}
+.float_right{
+	float: right;
+}
+.float_left{
+	float: left;
+}
+option{
+	color: black;
+}

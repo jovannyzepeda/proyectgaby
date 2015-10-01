@@ -1,0 +1,41 @@
+<div class="col-md-6 col-md-offset-3">
+  <h2 class="alert alert-info">
+    <strong>Registro de usuario</strong> 
+  </h2>
+  <%= form_for(@user, :url => { :action => "create" } ) do |f| %>
+    
+
+    <div class="field">
+      <%= f.label :email , "Correo electronico"%><br />
+      <%= f.email_field :email, autofocus: true ,class: "form-control"%>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(Minimo <%= @minimum_password_length %> caracteres)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "off",class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation , "Confirmacion de password"%><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off" ,class: "form-control"%>
+    </div>
+    <div>
+      <%= f.label :role , "Rol del usuario"%><br />
+      <%= f.select(:role) do %>
+      <%= content_tag(:option, "Administrador", value: "admin") %>
+      <%= content_tag(:option, "Vendedor", value: "vendedor") %>
+      <%= content_tag(:option, "Almacenista", value: "almacen") %>
+      <%= content_tag(:option, "Cajero", value: "cajero") %>
+      <%= content_tag(:option, "Tecnico", value: "tecnico") %>
+    <%end%>
+    </div>
+
+    <div class="actions">
+      <%= f.submit  "Registrar usuario" %>
+    </div>
+  <% end %>
+  <%= link_to 'regresar', admins_path, class: "btn btn-info fa fa-arrow-left float_right "%> 
+</div>

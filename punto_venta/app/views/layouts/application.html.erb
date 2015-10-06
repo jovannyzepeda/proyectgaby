@@ -7,23 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div data-role="header">
-	<% if user_signed_in? %>
-  		<li>
-  			<%= link_to('Salir', destroy_user_session_path, :method => :delete) %>        
-  		</li>
-      <% if current_user.is_admin?%>
-      <li>
-        <%= link_to('Registrar', admins_path, "data-role"=>"button" , "data-icon" => "plus", "data-iconpos"=>"notext", "data-theme" => "b" )  %>  
-      </li>
-  <% end %>
-      <% else %>
-      <li>
-      <%= link_to('Login', new_user_session_path)  %>  
-      </li>
-  <%end%>
-</div>
-<div data-role="content">
+<%= render "parcial/nav"%>
+<div data-role="content" data-theme="a">
 	<p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 	<%= yield %>

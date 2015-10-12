@@ -1,0 +1,30 @@
+
+<nav class="navbar navbar-default navbar-fixed-top" data-role="header" >
+  
+            <div class="navbar-header page-scroll">
+                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+            </div>
+
+<div data-role="collapsible" data-mini="true">
+    <h4>Heading</h4>
+    <ul data-role="listview">
+         <li>
+            <%= link_to "Inicio", root_path, "class" => "page-scroll"%>
+        </li>
+        <% if user_signed_in? %>
+            <li>
+                <%= link_to('Salir', destroy_user_session_path, :method => :delete) %>        
+            </li>
+            <% if current_user.is_admin?%>
+                <li>
+                    <%= link_to('Registrar', admins_path, "data-role"=>"button" , "data-icon" => "plus", "data-iconpos"=>"notext", "data-theme" => "b" )  %>  
+                </li>
+            <% end %>
+        <% else %>
+            <li>
+                <%= link_to('Login', new_user_session_path)  %>  
+            </li>
+        <%end%>
+    </ul>
+</div>
+</nav>

@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001205009) do
+ActiveRecord::Schema.define(version: 20151012213728) do
+
+  create_table "articulos", force: :cascade do |t|
+    t.string   "nombre",        limit: 255
+    t.text     "descripcion",   limit: 65535
+    t.integer  "existencia",    limit: 4
+    t.float    "precio_compra", limit: 24
+    t.float    "precio_venta",  limit: 24
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "clientes", force: :cascade do |t|
+    t.string   "nombre",     limit: 255
+    t.string   "telefono",   limit: 255
+    t.string   "domicilio",  limit: 255
+    t.string   "correo",     limit: 255
+    t.string   "categoria",  limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -32,4 +52,18 @@ ActiveRecord::Schema.define(version: 20151001205009) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "venta", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "cliente_id", limit: 4
+    t.date     "fecha"
+    t.float    "total",      limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "venta", ["cliente_id"], name: "index_venta_on_cliente_id", using: :btree
+  add_index "venta", ["user_id"], name: "index_venta_on_user_id", using: :btree
+
+  add_foreign_key "venta", "clientes"
+  add_foreign_key "venta", "users"
 end

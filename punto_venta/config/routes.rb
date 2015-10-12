@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :venta
+  resources :clientes
+  resources :articulos
   devise_for :users
   resources :admins, :controller => "admins"
    match 'admins/:id' => 'admins#destroy', :via => :delete, :as => :admin_destroy

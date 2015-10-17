@@ -6,9 +6,9 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body >
 <%= render "parcial/nav"%>
-<div data-role="content" data-theme="a">
+<div data-role="content" data-theme="a" class="margin_top">
 	<p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 	<%= yield %>

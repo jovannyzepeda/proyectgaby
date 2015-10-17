@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012213728) do
+ActiveRecord::Schema.define(version: 20151017142234) do
 
   create_table "articulos", force: :cascade do |t|
     t.string   "nombre",        limit: 255
@@ -32,6 +32,39 @@ ActiveRecord::Schema.define(version: 20151012213728) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "details", force: :cascade do |t|
+    t.integer  "sell_id",     limit: 4
+    t.integer  "articulo_id", limit: 4
+    t.integer  "catidad",     limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "details", ["articulo_id"], name: "index_details_on_articulo_id", using: :btree
+  add_index "details", ["sell_id"], name: "index_details_on_sell_id", using: :btree
+
+  create_table "detalle", force: :cascade do |t|
+    t.integer  "venta_id",    limit: 4
+    t.integer  "articulo_id", limit: 4
+    t.integer  "cantidad",    limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "detalle", ["articulo_id"], name: "index_detalle_on_articulo_id", using: :btree
+  add_index "detalle", ["venta_id"], name: "index_detalle_on_venta_id", using: :btree
+
+  create_table "sells", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "cliente_id", limit: 4
+    t.float    "total",      limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "sells", ["cliente_id"], name: "index_sells_on_cliente_id", using: :btree
+  add_index "sells", ["user_id"], name: "index_sells_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -64,6 +97,10 @@ ActiveRecord::Schema.define(version: 20151012213728) do
   add_index "venta", ["cliente_id"], name: "index_venta_on_cliente_id", using: :btree
   add_index "venta", ["user_id"], name: "index_venta_on_user_id", using: :btree
 
+  add_foreign_key "details", "articulos"
+  add_foreign_key "details", "sells"
+  add_foreign_key "sells", "clientes"
+  add_foreign_key "sells", "users"
   add_foreign_key "venta", "clientes"
   add_foreign_key "venta", "users"
 end

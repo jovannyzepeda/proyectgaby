@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :venta
+  resources :details
+  resources :sells
   resources :clientes
   resources :articulos
   devise_for :users

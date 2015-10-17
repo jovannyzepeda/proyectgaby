@@ -1,4 +1,4 @@
-class Ventum < ActiveRecord::Base
+class Sell < ActiveRecord::Base
   belongs_to :user
   belongs_to :cliente
 end

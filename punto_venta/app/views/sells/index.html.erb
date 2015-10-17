@@ -1,0 +1,65 @@
+<div class="col-md-12">
+  <h1 class="alert alert-info">Cliente</h1>
+  <input data-type="search" id="searchcliente"/>
+  <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchcliente">
+      <div data-role="collapsible" data-filtertext="<%@clientes.each do |cliente|%> <%=cliente.nombre%><%=cliente.id%> <%end%>">
+          <h3>Lista de clientes</h3>
+          <ul data-role="listview" data-inset="false">
+            <%@clientes.each do |cliente|%> 
+
+              <button data-filtertext="<%=cliente.nombre%><%=cliente.id%>" data-theme="b" onclick="selectcliente('<%=cliente.id%>', '<%=cliente.nombre%>')">#<%= cliente.id%> <%=cliente.nombre%></button>
+            <%end%> 
+          </ul>
+      </div>
+  </div>
+  <%=link_to "Registrar cliente nuevo", new_cliente_path, "data-role"=>"button", "data-inline"=>"true", "data-theme"=>"b", "class"=>"float_right"%>
+</div>
+<div class="col-md-12">
+  <h1 class="alert alert-info">Seleccion de Productos</h1>
+  <input data-type="search" id="searchForCollapsibleSetChildren">
+  <div data-role="collapsible-set" data-filter="true" data-children="> div, > div div ul button" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren">
+      <div data-role="collapsible" data-filtertext="<%@articulos.each do |name|%> <%=name.nombre%> <%end%>">
+          <h3>Lista de articulos</h3>
+          <ul data-role="listview" data-inset="false">
+            <%@articulos.each do |name|%> 
+              <button data-filtertext="<%=name.nombre%>" data-theme="b" onclick="enviar(<%=name.id%>, '<%=name.nombre%>',<%=name.precio_venta%>)"><%=name.nombre%></button>
+            <%end%> 
+          </ul>
+      </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <%= form_tag({:controller => "sells", :action => "new"}, :method => "get", "id"=>"index") do %>
+    <h3 class="alert alert-danger ">Cliente</h3>
+    <div id="cliente"></div>
+    <h3 class="alert alert-danger ">Productos seleccionados</h3>
+    <div id="elements"></div>
+    <%= submit_tag "Enviar" %>
+  <% end %>
+</div>
+
+
+
+<script type="text/javascript">
+  function enviar(id , nombre, precio){
+    $('#elements').append( '<input type="text"  id="'+id+'" name="data[][nombre]" value="'+nombre+'" class="alert alert-success" style="width:80%" readondly><input type="number"  id="'+id+'number" name="data[][cantidad]" value="1" class="alert alert-danger" style="width:15%"><input type="hidden"  id="'+id+'costo" name="data[][costo]" value="'+precio+'"><input type="hidden"  id="'+id+'id" name="data[][id]" value="'+id+'"><button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> ' );
+
+  }
+  function selectcliente(id , nombre){
+     $("div#cliente").empty();
+    $('#cliente').append( '<input type="text"  id="cliente'+id+'" name="cliente[][nombre]" value="'+nombre+'" class="alert alert-success" style="width:95%" readondly><input type="hidden"  id="'+id+'cliente" name="cliente[][id]" value="'+id+'"><button class="red float_right" onclick="deletecliente('+id+')" id="cliente'+id+'">x</button> ' );
+  }
+  function deletecliente(id){
+    $("input#cliente"+id).remove();
+    $("input#"+id+"cliente").remove();
+    $("button#cliente"+id).remove();
+  }
+  function eliminar(id){
+        $("input#"+id).remove();
+        $("input#"+id+"number").remove();
+        $("input#"+id+"id").remove();
+        $("input#"+id+"costo").remove();
+        $("button#"+id).remove();
+  }
+
+</script>

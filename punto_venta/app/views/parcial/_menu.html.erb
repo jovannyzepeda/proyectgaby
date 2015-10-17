@@ -1,0 +1,16 @@
+
+<li >
+	<%= link_to "Ventas", sells_path, class: "page-scroll"%>
+</li>
+<% if user_signed_in? %>
+	<li >
+		<%= link_to "Salir", destroy_user_session_path, method: :delete, class: "page-scroll"%>
+	</li>
+<%else%>
+	<li>
+		 <%= link_to('Registrar', new_user_registration_path, class: "page-scroll")  %>
+	</li>
+	<li>
+		<%= link_to('Login', new_user_session_path, class: "page-scroll")  %>  
+	</li>
+<%end%>

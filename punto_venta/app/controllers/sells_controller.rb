@@ -29,19 +29,24 @@ class SellsController < ApplicationController
 
         Sell.transaction do
           Detail.transaction do
-            if @sell.save
-              @data.each do |x| 
-                detalle = Detail.new
-                detalle.articulo_id = x["id"].to_i 
-                detalle.sell_id = @sell.id
-                detalle.catidad = x["cantidad"].to_i
-                detalle.save
+            Articulo.transaction do
+              if @sell.save
+                @data.each do |x| 
+                  detalle = Detail.new
+                  detalle.articulo_id = x["id"].to_i 
+                  detalle.sell_id = @sell.id
+                  detalle.catidad = x["cantidad"].to_i
+                  if detalle.save
+                    @articulo = Articulo.where("id = ?", x["id"].to_i )
+                    @articulo.first.update(existencia: @articulo.first.existencia - x["cantidad"].to_i)
+                  end
+                end
+                format.html { redirect_to @sell, notice: "Venta creada satisfactoriamente" }
+                format.json { render :show, status: :created, location: @sell }
+              else
+                format.html { render :new }
+                format.json { render json: @sell.errors, status: :unprocessable_entity }
               end
-              format.html { redirect_to @sell, notice: "Venta creada satisfactoriamente" }
-              format.json { render :show, status: :created, location: @sell }
-            else
-              format.html { render :new }
-              format.json { render json: @sell.errors, status: :unprocessable_entity }
             end
           end
         end

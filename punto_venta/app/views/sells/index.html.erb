@@ -13,7 +13,7 @@
             </ul>
         </div>
     </div>
-    <%=link_to "Registrar cliente nuevo", new_cliente_path, "data-role"=>"button", "data-inline"=>"true", "data-theme"=>"b", "class"=>"float_right"%>
+    <%=link_to "Registrar cliente nuevo", new_cliente_path, "data-role"=>"button", "data-inline"=>"true", "data-theme"=>"b", "class"=>" botton"%>
   </div>
   <div class="col-md-12">
     <h1 class="alert alert-info">Seleccion de Productos</h1>
@@ -31,37 +31,37 @@
   </div>
   <div class="col-md-12">
 
-    <%= form_tag({:controller => "sells", :action => "new"}, :method => "get", "id"=>"index") do %>
+    <%= form_tag({:controller => "sells", :action => "new"}, :method => "get", "id"=>"formulario_data") do %>
       <h3 class="alert alert-warning center">Cliente</h3>
       <div id="cliente"></div>
       <h3 class="alert alert-danger center">Productos seleccionados</h3>
       <div id="elements"></div>
-      <%= submit_tag "Enviar" %>
+      <%= submit_tag "enviar" %>
     <% end %>
   </div>
+  <button type="button" class="btn btn-info btn-lg" onclick="recorrer()" data-toggle="modal" data-target="#myModal" data-inline="true">
+    Generar compra
+  </button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title center">Confirmacion de pedido</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-inline="true"   data-dismiss="modal" onclick="enviar_formulario()">Confirmar</button>
+        <button type="button" class="btn btn-default" data-inline="true" data-dismiss="modal">Declinar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </div>
 
-
-<script type="text/javascript">
-  function enviar(id , nombre, precio, existencia){
-    $('#elements').append( '<input type="text"  id="'+id+'" name="data[][nombre]" value="'+nombre+'" class="alert alert-success" style="width:80%" readondly><input type="number"  id="'+id+'number" name="data[][cantidad]" value="1" max="'+existencia+'" class="alert alert-danger" style="width:15%"><input type="hidden"  id="'+id+'costo" name="data[][costo]" value="'+precio+'"><input type="hidden"  id="'+id+'id" name="data[][id]" value="'+id+'"><button class="red float_right" onclick="eliminar('+id+')" id="'+id+'">x</button> ' );
-
-  }
-  function selectcliente(id , nombre){
-     $("div#cliente").empty();
-    $('#cliente').append( '<input type="text"  id="cliente'+id+'" name="cliente[][nombre]" value="'+nombre+'" class="alert alert-success" style="width:95%" readondly><input type="hidden"  id="'+id+'cliente" name="cliente[][id]" value="'+id+'"><button class="red float_right" onclick="deletecliente('+id+')" id="cliente'+id+'">x</button> ' );
-  }
-  function deletecliente(id){
-    $("input#cliente"+id).remove();
-    $("input#"+id+"cliente").remove();
-    $("button#cliente"+id).remove();
-  }
-  function eliminar(id){
-        $("input#"+id).remove();
-        $("input#"+id+"number").remove();
-        $("input#"+id+"id").remove();
-        $("input#"+id+"costo").remove();
-        $("button#"+id).remove();
-  }
-
-</script>

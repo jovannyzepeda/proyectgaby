@@ -14,6 +14,11 @@
 .navbar{
 	    background-color: black;
 }
+@media(min-width: 995px){
+	.botton{
+		float: right;
+	}
+}
 ul.nav{
 	background-color: #dbdbdb;
     min-height: 30px;

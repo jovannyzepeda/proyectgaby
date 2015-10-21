@@ -11,6 +11,7 @@ class SellsController < ApplicationController
   # GET /sells/1
   # GET /sells/1.json
   def show
+    @productos = Detail.where("sell_id = ?", @sell.id)
   end
 
   # GET /sells/new

@@ -1,19 +1,44 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-4 col-md-offset-4">
 
-<p>
-  <strong>User:</strong>
-  <%= @sell.user %>
-</p>
+  <p id="notice"><%= notice %></p>
+  <h3 class="alert alert-info center">Resumen de Venta</h3>
 
-<p>
-  <strong>Cliente:</strong>
-  <%= @sell.cliente %>
-</p>
+  <p class="">
+    <strong>Realizada el:</strong>
+    <%= @sell.created_at %>
+  </p>
+  <p>
+    <strong>Por:</strong>
+    <%= @sell.user.email %>
+  </p>
 
-<p>
-  <strong>Total:</strong>
-  <%= @sell.total %>
-</p>
+  <p>
+    <strong>Cliente:</strong>
+    <%= @sell.cliente.nombre %>
+  </p>
+  <h3 class="alert alert-danger center">Productos vendidos</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%@productos.each do |productos|%>
+      <tr>
+        <th><%= productos.articulo.nombre %></th>
+      	<th><%= productos.catidad %></th>
+      </tr>
+    <%end%>
+    </tbody>
+  </table>
+  <p class="float_right">
+    <strong>Total:</strong>
+    <%= @sell.total %>
+  </p>
 
-<%= link_to 'Edit', edit_sell_path(@sell) %> |
-<%= link_to 'Back', sells_path %>
+  <%= link_to 'Edit', edit_sell_path(@sell) %> |
+  <%= link_to 'Back', sells_path %>
+
+</div>
